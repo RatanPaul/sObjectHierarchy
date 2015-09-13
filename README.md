@@ -16,6 +16,6 @@ any sobject with self lookup relationship.
     </apex:form>
 </apex:page>
 ```
-Note: Here ratan__ParentContactId__c field(self lookup) on Contact object
+Note: Here ratan__ParentContactId__c is a custom field(self lookup) on Contact sObject.
 
 [Installtion Package](https://login.salesforce.com/packaging/installPackage.apexp?p0=04t900000002ZnP)
