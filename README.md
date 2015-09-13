@@ -1,5 +1,9 @@
 # sObjectHierarchy
-any sobject with self lookup relationship.
+Any sobject with self lookup relationship.
+
+[Installtion Package](https://login.salesforce.com/packaging/installPackage.apexp?p0=04t900000002ZnP)
+
+[Website](http://ratanpaul.github.io/sObjectHierarchy)
 
 ```
 <apex:page standardController="Account" standardStylesheets="false" showHeader="false">
@@ -20,5 +24,3 @@ any sobject with self lookup relationship.
 Note: Here ratan__ParentContactId__c is a custom field(self lookup) on Contact sObject.
 
 ![Account hierarchy](https://raw.githubusercontent.com/RatanPaul/imges/master/img/Contact%20Hierarchy.png)
-
-[Installtion Package](https://login.salesforce.com/packaging/installPackage.apexp?p0=04t900000002ZnP)
