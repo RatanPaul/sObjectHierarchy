@@ -1,0 +1,82 @@
+<apex:component controller="RN_sObjectHierarchy">
+    <apex:attribute name="sObjectName" type="string" description="sobject api name" required="true" assignTo="{!strSobjectType}"/>
+    <apex:attribute name="relationshipFieldName" type="string" description="sobject field api name" required="true" assignTo="{!strRelationshipName}"/>
+    <apex:attribute name="sObjectId" type="Id" required="true" description="record id" assignTo="{!recordId}"/>
+    <apex:attribute name="sObjectFields" type="string"  description="SobjectFields" required="true" assignTo="{!strFields}"/>
+    
+    <apex:stylesheet value="{!URLFOR($Resource.RN_sObjectHierarchy, 'css/bootstrap.min.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.RN_sObjectHierarchy, 'css/treeGrid.css')}"/>
+    
+    <apex:includeScript value="{!URLFOR($Resource.RN_sObjectHierarchy, 'js/angular.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.RN_sObjectHierarchy, 'js/tree-grid-directive.js')}"/>
+    
+    <body ng-app="myApp" ng-controller="treeGridController" class="rn">
+        <button ng-click="my_tree.expand_all()" class="btn btn-default btn-sm">Expand All</button>
+        <button ng-click="my_tree.collapse_all()" class="btn btn-default btn-sm">Collapse All</button>
+        <input class="input-sm pull-right" type="text" data-ng-model="filterString"	placeholder="Filter" />
+        <tree-grid tree-data="tree_data" tree-control="my_tree" col-defs="col_defs" expand-on="expanding_property" on-select="my_tree_handler(branch)" expand-level="2" icon-leaf= "glyphicon glyphicon-globe"></tree-grid>
+    </body>
+    <script>
+    var myApp = angular.module('myApp', ['treeGrid']);
+
+    // controller
+    myApp.controller('treeGridController', function ($scope, $timeout) {
+        var tree;
+        var rawTreeData = {!JSONData};
+        var myTreeData = getTree(rawTreeData, 'Id', '{!relationshipFieldName}');
+
+        $scope.tree_data = myTreeData;
+        $scope.my_tree = tree = {};
+        $scope.expanding_property = {
+            field: "Name",
+            displayName: "Name",
+			sortable : true,
+			filterable: true
+        };
+        $scope.col_defs = {!FieldsJSON};
+        $scope.my_tree_handler = function (branch) {
+            console.log('you clicked on', branch)
+        }
+        function getTree(data, primaryIdName, parentIdName) {
+            if (!data || data.length == 0 || !primaryIdName || !parentIdName)
+                return [];
+
+            var tree = [],
+                rootIds = [],
+                item = data[0],
+                primaryKey = item[primaryIdName],
+                treeObjs = {},
+                parentId,
+                parent,
+                len = data.length,
+                i = 0;
+                
+            while (i < len) {
+                item = data[i++];
+                primaryKey = item[primaryIdName];
+                treeObjs[primaryKey] = item;
+                parentId = item[parentIdName];
+
+                if (parentId) {
+                    parent = treeObjs[parentId];
+
+                    if (parent.children) {
+                        parent.children.push(item);
+                    } else {
+                        parent.children = [item];
+                    }
+                } else {
+                    rootIds.push(primaryKey);
+                }
+            }
+
+            for (var i = 0; i < rootIds.length; i++) {
+                tree.push(treeObjs[rootIds[i]]);
+            };
+
+            return tree;
+        }
+
+    });
+    </script>
+</apex:component>

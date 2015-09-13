@@ -1,0 +1,5 @@
+<apex:page standardController="Account" standardStylesheets="false" showHeader="false">
+    <apex:form >
+        <c:RN_sObjectHierarchy sObjectName="Account" relationshipFieldName="ParentId" sObjectId="{!account.Id}" sObjectFields="Name, Phone, Type, AccountNumber, Rating"/>
+    </apex:form>
+</apex:page>
