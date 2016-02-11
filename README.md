@@ -1,6 +1,8 @@
 # sObjectHierarchy
 Any sobject with self lookup relationship.
 
+[Demo link](https://ap2-developer-edition.ap1.force.com/pages/RN_AccountHierarchy?id=0019000001WPW4x)
+
 [Installtion Package](https://login.salesforce.com/packaging/installPackage.apexp?p0=04t900000002ZnP)
 
 [Website](http://ratanpaul.github.io/sObjectHierarchy)
