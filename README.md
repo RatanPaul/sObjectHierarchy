@@ -1,4 +1,4 @@
-# sObjectHierarchy
+# sObjectHierarchy, AccountHierarchy (Any sobject with self relationship )
 Any sobject with self lookup relationship.
 
 [Demo link](https://ap2-developer-edition.ap1.force.com/pages/RN_AccountHierarchy?id=0019000001WPW4x)
